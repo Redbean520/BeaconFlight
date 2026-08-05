@@ -14,7 +14,7 @@ apply plugin: "maven-publish"
 
 version = project.mod_version
 group = project.maven_group
-base { archivesName = project.archives_base_name }
+base { archivesName = "${project.archives_base_name}+mc${project.minecraft_version}" }
 
 repositories {
     maven { url = 'https://maven.aliyun.com/repository/central' }

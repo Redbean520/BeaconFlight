@@ -3,6 +3,7 @@
 build/
 out/
 run/
+!gradle/wrapper/gradle-wrapper.jar
 
 # IDE
 .idea/
@@ -27,18 +28,18 @@ Thumbs.db
 !gradle/wrapper/gradle-wrapper.jar
 *.war
 *.nar
-hs_err_pid*
 
 # Minecraft
 run/
 
-# Crash reports & launcher logs (may contain auth tokens)
+# Crash reports & launcher logs
 错误报告/
 crash-reports/
-crash-reports/
 *.mclo.gs
-hs_err_pid*
 
 # Logs
 *.log
 latest.log
+
+# Gradle init scripts (local mirrors etc.)
+.gradle/init.d/
