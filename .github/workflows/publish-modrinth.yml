@@ -48,7 +48,7 @@ jobs:
       - name: Publish to Modrinth
         uses: Kir-Antipov/mc-publish@v3
         with:
-          modrinth-id: beacon-flight
+          modrinth-id: redbean-beaconflight
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
           name: "BeaconFlight ${{ steps.vars.outputs.tag }} for MC ${{ matrix.mc-version }}"
