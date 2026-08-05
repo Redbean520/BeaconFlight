@@ -1,96 +1,165 @@
-# 信标飞行 Beacon Flight
+# 信标飞行 | Beacon Flight
 
-[![Minecraft](https://img.shields.io/badge/Minecraft-26.2-brightgreen)](https://minecraft.net)
-[![Fabric](https://img.shields.io/badge/Mod_Loader-Fabric-blue)](https://fabricmc.net)
-[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
-![Environment](https://img.shields.io/badge/Environment-Server-orange)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Mod Loader: Fabric](https://img.shields.io/badge/Mod_Loader-Fabric-blue)](https://fabricmc.net)
+[![Environment: Server](https://img.shields.io/badge/Environment-Server-orange)](#)
+[![Modrinth](https://img.shields.io/badge/Modrinth-coming_soon-green)](#)
+[![CurseForge](https://img.shields.io/badge/CurseForge-coming_soon-orange)](#)
+
+[**English**](#english) | [**中文**](#中文)
 
 ---
 
-## ✈ 简介
+<a name="中文"></a>
+## ✈ 信标飞行
 
-在信标范围内获得**创造模式飞行**能力。
+在信标范围内获得**创造模式飞行**能力——只要身上有任意信标效果，就能像创造模式一样自由飞翔。
 
-只要身上有信标效果（速度、急迫、抗性、跳跃提升、力量、生命恢复中的任意一个），就能像创造模式一样自由飞翔。离开范围后效果自然消失，飞行也随之停止，有约 9 秒的缓冲时间让你安全落地。
+**纯服务端**模组，装在服务器上所有玩家都能用，单人游戏也生效。无配置文件、无额外依赖，即装即用。
 
-**纯服务端**模组——装在服务器上，所有玩家都能用。单人游戏也照常生效。
-
-### 🎮 使用方法
+### 🎮 使用
 
 1. 建造一个激活的信标（任意等级）
-2. 在信标 GUI 中选择任意效果
+2. 选择任意信标效果
 3. 进入范围 → **自动获得飞行**
-4. 离开范围 → 信标效果过期后飞行自动停止
-
-无需特殊操作，信标的原生效果图标就是飞行状态的指示器。
+4. 离开范围 → 效果过期后飞行自动停止（~9 秒缓冲）
 
 ### ✨ 特性
 
-- 🚀 信标范围内创造飞行
-- 🎯 不需要额外操作，选中任意信标效果即可
-- ⏱ 离开范围约 9 秒缓冲后飞行停止
+- 🚀 信标范围内创造模式飞行
+- 🎯 零操作——选中任意信标效果即可
+- ⏱ 离开范围约 9 秒缓冲后自动停止
 - 🖥 纯服务端，玩家无需安装
-- ⚡ 零性能开销——仅检查玩家身上的原版效果
+- ⚡ 零性能开销——仅检查原版信标效果
 - 🔧 无配置文件，即装即用
+- 📦 无需 Fabric API
+
+### 📥 下载
+
+从 [Releases](../../releases) 页面选择对应 MC 版本的 jar：
+
+| Minecraft | 状态 |
+|-----------|------|
+| 1.20.1 | ✅ |
+| 1.21.1 | ✅ |
+| 26.1 | ✅ |
+| 26.1.2 | ✅ |
+| 26.2 | ✅ |
 
 ### 📦 安装
 
-1. 下载 `beaconflight-1.0.0.jar`
-2. 放入服务端或单人游戏的 `mods/` 文件夹
-3. 确保已安装 **Fabric Loader** 和 **Fabric API**
+1. 下载对应 MC 版本的 `beaconflight-1.0.1.jar`
+2. 放入 `mods/` 文件夹
+3. 确保已安装 **Fabric Loader**
 4. 启动游戏
 
-### 🔗 依赖
+### 🔧 构建
 
-| 依赖 | 版本 |
-|---|---|
-| Minecraft | 26.2 |
-| Fabric Loader | ≥ 0.19.3 |
-| Fabric API | 任意 |
-| Java | ≥ 25 |
+```bash
+# 以 1.20.1 为例（需 JDK 17+）
+cd 1.20.1
+./gradlew build
+# jar 输出到 build/libs/
+```
+
+各版本的 JDK 要求：
+
+| 版本 | JDK |
+|------|-----|
+| 1.20.1 | ≥ 17 |
+| 1.21.1 | ≥ 21 |
+| 26.x | ≥ 25 |
 
 ### 📝 技术细节
 
-- 零扫描、零计时器——完全依赖原版信标的范围和效果系统
-- 通过 Mixin 注入 `ServerPlayer.tick()`，在玩家拥有信标效果时设置 `mayfly = true`
-- 效果消失时自动恢复，不影响创造/旁观模式玩家
+- **零扫描、零计时器**——完全依赖原版信标的范围和效果系统
+- 通过 Mixin 注入 `ServerPlayer.tick()`，检测 `BeaconBlockEntity.BEACON_EFFECTS`
+- 拥有信标效果时设置 `mayfly = true`，效果消失自动恢复
+- 不影响创造/旁观模式玩家
+- 每 0.5 秒检查一次（信标效果本身有数秒缓冲），极致性能
 
 ---
 
-## ✈ Description
+<a name="english"></a>
+## ✈ Beacon Flight
 
-Grants **creative-mode flight** to any player with an active beacon effect.
+Grants **creative-mode flight** to players within an active beacon's range. As long as you have ANY beacon effect active, you can fly freely.
 
-As long as you have ANY beacon effect active (Speed, Haste, Resistance, Jump Boost, Strength, or Regeneration), you can fly freely within the beacon's range. When you leave the range, the flight naturally expires with the beacon effects — giving you about 9 seconds of buffer time to land safely.
+**Server-side only** — install on your server and all players benefit. No config, no extra dependencies.
 
-**Server-side only** — install on your server and all players benefit. Works in singleplayer too.
-
-### 🎮 How to Use
+### 🎮 Usage
 
 1. Build and activate a beacon (any tier)
 2. Select any effect in the beacon GUI
-3. Enter range → **flight automatically activates**
-4. Leave range → flight expires with beacon effects
-
-The vanilla beacon effect icon serves as your flight indicator.
+3. Enter range → **flight activates automatically**
+4. Leave range → flight expires with ~9s grace period
 
 ### ✨ Features
 
 - 🚀 Creative flight inside beacon range
-- 🎯 No special actions needed — just select any beacon effect
+- 🎯 Zero setup — just select any beacon effect
 - ⏱ ~9s grace period after leaving range
 - 🖥 Server-side — players don't need to install
-- ⚡ Zero performance overhead — only checks for vanilla beacon effects
+- ⚡ Zero overhead — checks vanilla beacon effects only
 - 🔧 No config, plug and play
+- 📦 No Fabric API required
+
+### 📥 Download
+
+Choose the jar matching your MC version from [Releases](../../releases):
+
+| Minecraft | Status |
+|-----------|--------|
+| 1.20.1 | ✅ |
+| 1.21.1 | ✅ |
+| 26.1 | ✅ |
+| 26.1.2 | ✅ |
+| 26.2 | ✅ |
 
 ### 📦 Installation
 
-1. Download `beaconflight-1.0.0.jar`
+1. Download the jar for your MC version
 2. Place in `mods/` folder (server or singleplayer)
-3. Requires **Fabric Loader** + **Fabric API**
+3. Ensure **Fabric Loader** is installed
 4. Launch and enjoy!
 
+### 🔧 Build
+
+```bash
+# Example for 1.20.1 (requires JDK 17+)
+cd 1.20.1
+./gradlew build
+# Output: build/libs/
+```
+
+| Version | JDK |
+|---------|-----|
+| 1.20.1 | ≥ 17 |
+| 1.21.1 | ≥ 21 |
+| 26.x | ≥ 25 |
+
+### 📝 Technical Details
+
+- **No scanning, no timers** — leverages vanilla beacon range & effect system
+- Mixin into `ServerPlayer.tick()`, checks `BeaconBlockEntity.BEACON_EFFECTS`
+- Sets `mayfly = true` when beacon effects are active, auto-revokes on expiry
+- Does not affect creative or spectator players
+- Checks every 0.5s — beacon effects have multi-second buffer, so this is imperceptible
+
 ---
+
+## 📁 Project Structure
+
+```
+BeaconFlight/
+├── README.md
+├── LICENSE
+├── 1.20.1/       ← MC 1.20.1 (pre-Holder API)
+├── 1.21.1/       ← MC 1.21.1 (Holder API)
+├── 26.1/         ← MC 26.1 Tiny Takeover
+├── 26.1.2/       ← MC 26.1.2
+└── 26.2/         ← MC 26.2 Summer Drop
+```
 
 ## 👤 Author
 
@@ -98,4 +167,4 @@ The vanilla beacon effect icon serves as your flight indicator.
 
 ## 📄 License
 
-MIT
+[MIT](LICENSE) — 自由使用、修改、分发。
