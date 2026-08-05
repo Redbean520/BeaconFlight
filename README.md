@@ -42,13 +42,14 @@
 |-----------|------|
 | 1.20.1 | ✅ |
 | 1.21.1 | ✅ |
+| 1.21.11 | ✅ |
 | 26.1 | ✅ |
 | 26.1.2 | ✅ |
 | 26.2 | ✅ |
 
 ### 📦 安装
 
-1. 下载对应 MC 版本的 jar（如 `beaconflight-1.0.1+mc1.20.1.jar`）
+1. 下载对应 MC 版本的 jar（如 `beaconflight+mc1.20.1-1.0.1.jar`）
 2. 放入 `mods/` 文件夹
 3. 确保已安装 **Fabric Loader**
 4. 启动游戏
@@ -59,7 +60,7 @@
 # 以 1.20.1 为例（需 JDK 17+）
 cd 1.20.1
 ./gradlew build
-# jar 输出到 build/libs/（如 beaconflight-1.0.1+mc1.20.1.jar）
+# jar 输出到 build/libs/（如 beaconflight+mc1.20.1-1.0.1.jar）
 ```
 
 各版本的 JDK 要求：
@@ -67,7 +68,7 @@ cd 1.20.1
 | 版本 | JDK |
 |------|-----|
 | 1.20.1 | ≥ 17 |
-| 1.21.1 | ≥ 21 |
+| 1.21.1 / 1.21.11 | ≥ 21 |
 | 26.x | ≥ 25 |
 
 ### 📝 技术细节
@@ -112,13 +113,14 @@ Choose the jar matching your MC version from [Releases](../../releases):
 |-----------|--------|
 | 1.20.1 | ✅ |
 | 1.21.1 | ✅ |
+| 1.21.11 | ✅ |
 | 26.1 | ✅ |
 | 26.1.2 | ✅ |
 | 26.2 | ✅ |
 
 ### 📦 Installation
 
-1. Download the jar matching your MC version (e.g. `beaconflight-1.0.1+mc1.20.1.jar`)
+1. Download the jar matching your MC version (e.g. `beaconflight+mc1.20.1-1.0.1.jar`)
 2. Place in `mods/` folder (server or singleplayer)
 3. Ensure **Fabric Loader** is installed
 4. Launch and enjoy!
@@ -135,7 +137,7 @@ cd 1.20.1
 | Version | JDK |
 |---------|-----|
 | 1.20.1 | ≥ 17 |
-| 1.21.1 | ≥ 21 |
+| 1.21.1 / 1.21.11 | ≥ 21 |
 | 26.x | ≥ 25 |
 
 ### 📝 Technical Details
@@ -156,6 +158,7 @@ BeaconFlight/
 ├── LICENSE
 ├── 1.20.1/       ← MC 1.20.1 (pre-Holder API)
 ├── 1.21.1/       ← MC 1.21.1 (Holder API)
+├── 1.21.11/      ← MC 1.21.11 (Holder API)
 ├── 26.1/         ← MC 26.1 Tiny Takeover
 ├── 26.1.2/       ← MC 26.1.2
 └── 26.2/         ← MC 26.2 Summer Drop
