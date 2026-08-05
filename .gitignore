@@ -1,0 +1,44 @@
+# Gradle
+.gradle/
+build/
+out/
+run/
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.project
+.classpath
+.settings/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Java
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+*.war
+*.nar
+hs_err_pid*
+
+# Minecraft
+run/
+
+# Crash reports & launcher logs (may contain auth tokens)
+错误报告/
+crash-reports/
+crash-reports/
+*.mclo.gs
+hs_err_pid*
+
+# Logs
+*.log
+latest.log
