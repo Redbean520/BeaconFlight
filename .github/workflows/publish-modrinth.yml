@@ -1,0 +1,56 @@
+name: Publish to Modrinth
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v1.0.1)'
+        required: true
+        default: 'v1.0.1'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - pattern: "*+mc1.20.1-*.jar"
+            mc-version: "1.20.1"
+          - pattern: "*+mc1.21.1-*.jar"
+            mc-version: "1.21.1"
+          - pattern: "*+mc1.21.11-*.jar"
+            mc-version: "1.21.11"
+          - pattern: "*+mc26.1-*.jar"
+            mc-version: "26.1"
+          - pattern: "*+mc26.1.2-*.jar"
+            mc-version: "26.1.2"
+          - pattern: "*+mc26.2-*.jar"
+            mc-version: "26.2"
+
+    steps:
+      - name: Download jar from Release
+        run: |
+          curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ github.ref_name }}" \
+            | jq -r '.assets[].browser_download_url' \
+            | grep "${{ matrix.pattern }}" \
+            | xargs -I{} curl -sSL -O {}
+
+      - name: Publish to Modrinth
+        uses: Kir-Antipov/mc-publish@v3
+        with:
+          modrinth-id: beacon-flight
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+
+          name: "BeaconFlight ${{ github.ref_name }} — MC ${{ matrix.mc-version }}"
+          version: "${{ github.ref_name }}+mc${{ matrix.mc-version }}"
+          version-type: release
+          game-versions: ${{ matrix.mc-version }}
+          loaders: fabric
+          files: "*+mc${{ matrix.mc-version }}-*.jar"
+
+          changelog: |
+            详见 [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/master/CHANGELOG.md)
+            下载其他 MC 版本: [GitHub Releases](https://github.com/${{ github.repository }}/releases)
