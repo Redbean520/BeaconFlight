@@ -30,10 +30,17 @@ jobs:
             mc-version: "26.2"
 
     steps:
+      - name: Determine tag
+        id: vars
+        run: |
+          TAG="${{ github.event.inputs.tag || github.event.release.tag_name }}"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"
+
       - name: Download jar from Release
         run: |
           curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ github.ref_name }}" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ steps.vars.outputs.tag }}" \
             | jq -r '.assets[].browser_download_url' \
             | grep "${{ matrix.pattern }}" \
             | xargs -I{} curl -sSL -O {}
@@ -44,8 +51,8 @@ jobs:
           modrinth-id: beacon-flight
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
-          name: "BeaconFlight ${{ github.ref_name }} — MC ${{ matrix.mc-version }}"
-          version: "${{ github.ref_name }}+mc${{ matrix.mc-version }}"
+          name: "BeaconFlight ${{ steps.vars.outputs.tag }} for MC ${{ matrix.mc-version }}"
+          version: "${{ steps.vars.outputs.version }}+mc${{ matrix.mc-version }}"
           version-type: release
           game-versions: ${{ matrix.mc-version }}
           loaders: fabric
