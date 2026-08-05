@@ -24,8 +24,6 @@ jobs:
             mc-version: "1.21.11"
           - pattern: "*+mc26.1-*.jar"
             mc-version: "26.1"
-          - pattern: "*+mc26.1.2-*.jar"
-            mc-version: "26.1.2"
           - pattern: "*+mc26.2-*.jar"
             mc-version: "26.2"
 

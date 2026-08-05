@@ -44,7 +44,6 @@
 | 1.21.1 | ✅ |
 | 1.21.11 | ✅ |
 | 26.1 | ✅ |
-| 26.1.2 | ✅ |
 | 26.2 | ✅ |
 
 ### 📦 安装
@@ -115,7 +114,6 @@ Choose the jar matching your MC version from [Releases](../../releases):
 | 1.21.1 | ✅ |
 | 1.21.11 | ✅ |
 | 26.1 | ✅ |
-| 26.1.2 | ✅ |
 | 26.2 | ✅ |
 
 ### 📦 Installation
@@ -160,7 +158,6 @@ BeaconFlight/
 ├── 1.21.1/       ← MC 1.21.1 (Holder API)
 ├── 1.21.11/      ← MC 1.21.11 (Holder API)
 ├── 26.1/         ← MC 26.1 Tiny Takeover
-├── 26.1.2/       ← MC 26.1.2
 └── 26.2/         ← MC 26.2 Summer Drop
 ```
 
