@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "com.example.beaconflight.mixin",
+  "package": "com.redbean.beaconflight.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "BeaconFlightMixin"

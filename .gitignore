@@ -3,7 +3,7 @@
 build/
 out/
 run/
-!gradle/wrapper/gradle-wrapper.jar
+!**/gradle/wrapper/gradle-wrapper.jar
 
 # IDE
 .idea/
@@ -25,7 +25,7 @@ Thumbs.db
 # Java
 *.class
 *.jar
-!gradle/wrapper/gradle-wrapper.jar
+!**/gradle/wrapper/gradle-wrapper.jar
 *.war
 *.nar
 

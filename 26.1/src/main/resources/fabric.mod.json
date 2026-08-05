@@ -10,7 +10,7 @@
   "icon": "assets/beaconflight/icon.png",
   "environment": "server",
   "entrypoints": {
-    "main": ["com.example.beaconflight.BeaconFlightMod"]
+    "main": ["com.redbean.beaconflight.BeaconFlightMod"]
   },
   "mixins": ["beaconflight.mixins.json"],
   "depends": {
