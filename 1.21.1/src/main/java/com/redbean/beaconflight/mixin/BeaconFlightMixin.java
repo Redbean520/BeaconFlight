@@ -25,6 +25,8 @@ public abstract class BeaconFlightMixin {
     /** Check beacon effects only every N ticks (~0.5 s) — beacon grace period is several seconds. */
     @Unique
     private static final int CHECK_INTERVAL = 10;
+    @Unique
+    private boolean beaconflight$grantedByUs;
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void beaconflight$tick(CallbackInfo ci) {
@@ -41,14 +43,16 @@ public abstract class BeaconFlightMixin {
         if (hasBeacon) {
             if (!abilities.mayfly) {
                 abilities.mayfly = true;
+                beaconflight$grantedByUs = true;
                 if (self.connection != null) {
                     self.connection.send(new ClientboundPlayerAbilitiesPacket(abilities));
                 }
             }
         } else {
-            if (abilities.mayfly && !self.isCreative()) {
+            if (abilities.mayfly && beaconflight$grantedByUs && !self.isCreative()) {
                 abilities.mayfly = false;
                 abilities.flying = false;
+                beaconflight$grantedByUs = false;
                 if (self.connection != null) {
                     self.connection.send(new ClientboundPlayerAbilitiesPacket(abilities));
                 }
@@ -59,8 +63,11 @@ public abstract class BeaconFlightMixin {
     private static boolean hasAnyBeaconEffect(ServerPlayer player) {
         for (List<Holder<MobEffect>> tier : BeaconBlockEntity.BEACON_EFFECTS) {
             for (Holder<MobEffect> holder : tier) {
-                if (player.hasEffect(holder) && player.getEffect(holder).isAmbient()) {
-                    return true;
+                if (player.hasEffect(holder)) {
+                    var instance = player.getEffect(holder);
+                    if (instance != null && instance.isAmbient()) {
+                        return true;
+                    }
                 }
             }
         }
