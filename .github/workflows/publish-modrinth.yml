@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Release tag (e.g. v1.0.2)'
+        description: 'Release tag (e.g. v1.0.3)'
         required: true
-        default: 'v1.0.2'
+        default: 'v1.0.3'
 
 jobs:
   publish:
@@ -17,37 +17,57 @@ jobs:
       matrix:
         include:
           # Fabric
-          - pattern: "*-1.20.x-fabric-*.jar"
-            mc-version: "1.20.1"
+          - grep-regex: "beaconflight-1\\.20\\.x-fabric-[0-9.]+(-sources)?\\.jar"
+            file-glob: "beaconflight-1.20.x-fabric-*.jar"
+            game-versions: "1.20.1, 1.20.2, 1.20.3, 1.20.4, 1.20.5, 1.20.6"
+            version-suffix: "1.20.x"
             loader: "fabric"
-          - pattern: "*-1.21.1-fabric-*.jar"
-            mc-version: "1.21.1"
+          - grep-regex: "beaconflight-1\\.21\\.1-fabric-[0-9.]+(-sources)?\\.jar"
+            file-glob: "beaconflight-1.21.1-fabric-*.jar"
+            game-versions: "1.21.1"
+            version-suffix: "1.21.1"
             loader: "fabric"
-          - pattern: "*-1.21.11-fabric-*.jar"
-            mc-version: "1.21.11"
+          - grep-regex: "beaconflight-1\\.21\\.11-fabric-[0-9.]+(-sources)?\\.jar"
+            file-glob: "beaconflight-1.21.11-fabric-*.jar"
+            game-versions: "1.21.11"
+            version-suffix: "1.21.11"
             loader: "fabric"
-          - pattern: "*-26.1-fabric-*.jar"
-            mc-version: "26.1"
+          - grep-regex: "beaconflight-26\\.1-fabric-[0-9.]+(-sources)?\\.jar"
+            file-glob: "beaconflight-26.1-fabric-*.jar"
+            game-versions: "26.1"
+            version-suffix: "26.1"
             loader: "fabric"
-          - pattern: "*-26.2-fabric-*.jar"
-            mc-version: "26.2"
+          - grep-regex: "beaconflight-26\\.2-fabric-[0-9.]+(-sources)?\\.jar"
+            file-glob: "beaconflight-26.2-fabric-*.jar"
+            game-versions: "26.2"
+            version-suffix: "26.2"
             loader: "fabric"
           # NeoForge
-          - pattern: "*-1.21.1-neoforge-*.jar"
-            mc-version: "1.21.1"
+          - grep-regex: "beaconflight-1\\.21\\.1-neoforge-[0-9.]+(-sources)?\\.jar"
+            file-glob: "beaconflight-1.21.1-neoforge-*.jar"
+            game-versions: "1.21.1"
+            version-suffix: "1.21.1"
             loader: "neoforge"
-          - pattern: "*-1.21.11-neoforge-*.jar"
-            mc-version: "1.21.11"
+          - grep-regex: "beaconflight-1\\.21\\.11-neoforge-[0-9.]+(-sources)?\\.jar"
+            file-glob: "beaconflight-1.21.11-neoforge-*.jar"
+            game-versions: "1.21.11"
+            version-suffix: "1.21.11"
             loader: "neoforge"
-          - pattern: "*-26.1-neoforge-*.jar"
-            mc-version: "26.1"
+          - grep-regex: "beaconflight-26\\.1-neoforge-[0-9.]+(-sources)?\\.jar"
+            file-glob: "beaconflight-26.1-neoforge-*.jar"
+            game-versions: "26.1"
+            version-suffix: "26.1"
             loader: "neoforge"
-          - pattern: "*-26.2-neoforge-*.jar"
-            mc-version: "26.2"
+          - grep-regex: "beaconflight-26\\.2-neoforge-[0-9.]+(-sources)?\\.jar"
+            file-glob: "beaconflight-26.2-neoforge-*.jar"
+            game-versions: "26.2"
+            version-suffix: "26.2"
             loader: "neoforge"
           # Forge
-          - pattern: "*-1.20.x-forge-*.jar"
-            mc-version: "1.20.1"
+          - grep-regex: "beaconflight-1\\.20\\.x-forge-[0-9.]+(-sources)?\\.jar"
+            file-glob: "beaconflight-1.20.x-forge-*.jar"
+            game-versions: "1.20.1, 1.20.2, 1.20.3, 1.20.4, 1.20.5, 1.20.6"
+            version-suffix: "1.20.x"
             loader: "forge"
 
     steps:
@@ -63,7 +83,8 @@ jobs:
           curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ steps.vars.outputs.tag }}" \
             | jq -r '.assets[].browser_download_url' \
-            | grep "${{ matrix.pattern }}" \
+            | grep -E "${{ matrix.grep-regex }}" \
+            | grep -v '\-sources\.jar$' \
             | xargs -I{} curl -sSL -O {}
 
       - name: Publish to Modrinth
@@ -72,12 +93,12 @@ jobs:
           modrinth-id: redbean-beaconflight
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
-          name: "BeaconFlight ${{ steps.vars.outputs.tag }} for MC ${{ matrix.mc-version }} (${{ matrix.loader }})"
-          version: "${{ steps.vars.outputs.version }}+mc${{ matrix.mc-version }}-${{ matrix.loader }}"
+          name: "BeaconFlight ${{ steps.vars.outputs.tag }} for MC ${{ matrix.version-suffix }} (${{ matrix.loader }})"
+          version: "${{ steps.vars.outputs.version }}+mc${{ matrix.version-suffix }}-${{ matrix.loader }}"
           version-type: release
-          game-versions: ${{ matrix.mc-version }}
+          game-versions: ${{ matrix.game-versions }}
           loaders: ${{ matrix.loader }}
-          files: "*${{ matrix.pattern }}"
+          files: ${{ matrix.file-glob }}
 
           changelog: |
             详见 [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/master/CHANGELOG.md)

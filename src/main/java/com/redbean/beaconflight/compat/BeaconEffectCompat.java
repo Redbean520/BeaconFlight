@@ -11,7 +11,7 @@ import java.util.List;
  * Checks whether a player has any ambient beacon effect active.
  * <p>
  * This is the <b>MC 1.21+</b> implementation — the field changed from
- * {@code MobEffect[][]} to {@code List<Holder<MobEffect>>}.
+ * {@code MobEffect[][]} to {@code List<List<Holder<MobEffect>>>}.
  * <p>
  * MC 1.20.x uses its own versioned overlay at
  * {@code versions/1.20.x-fabric/.../compat/BeaconEffectCompat.java}

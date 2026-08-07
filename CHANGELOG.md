@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3 — 2026-08-07
+
+### Fixed
+- 修复 `1.21.11-neoforge` 的 NeoForge 版本号错误（`21.1.119` → `21.11.45`），之前实际编译的是 MC 1.21.1
+- 更新 `1.21.1-neoforge` NeoForge 版本（`21.1.119` → `21.1.248`）
+
 ## 1.0.2 — 2026-08-07
 
 ### Added
@@ -40,7 +46,7 @@
 - Added `@Unique` annotation on `CHECK_INTERVAL` to prevent mixin conflicts
 - `gradle-wrapper.jar` correctly tracked in nested directories
 
-## 1.0.0 — 2026-07
+## 1.0.0 — 2026-07-01
 
 ### Initial Release
 - Creative flight inside beacon range

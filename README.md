@@ -41,15 +41,20 @@
 
 从 [Releases](../../releases) 页面选择对应 MC 版本和 loader 的 jar：
 
-| Minecraft | Fabric | NeoForge | Forge |
-|-----------|--------|----------|-------|
-| 1.20.1 | ✅ | — | ✅ |
-| 1.21.1 | ✅ | ✅ | — |
-| 1.21.11 | ✅ | ✅ | — |
-| 26.1 | ✅ | ✅ | — |
-| 26.2 | ✅ | ✅ | — |
+| MC 范围 | Loader | Jar |
+|----------|--------|-----|
+| 1.20.x | Fabric | `beaconflight-1.20.x-fabric-1.0.3.jar` |
+| 1.20.x | Forge | `beaconflight-1.20.x-forge-1.0.3.jar` |
+| 1.21.1 | Fabric | `beaconflight-1.21.1-fabric-1.0.3.jar` |
+| 1.21.1 | NeoForge | `beaconflight-1.21.1-neoforge-1.0.3.jar` |
+| 1.21.11 | Fabric | `beaconflight-1.21.11-fabric-1.0.3.jar` |
+| 1.21.11 | NeoForge | `beaconflight-1.21.11-neoforge-1.0.3.jar` |
+| 26.1 | Fabric | `beaconflight-26.1-fabric-1.0.3.jar` |
+| 26.1 | NeoForge | `beaconflight-26.1-neoforge-1.0.3.jar` |
+| 26.2 | Fabric | `beaconflight-26.2-fabric-1.0.3.jar` |
+| 26.2 | NeoForge | `beaconflight-26.2-neoforge-1.0.3.jar` |
 
-Jar 命名格式: `beaconflight-{MC版本}-{loader}-{mod版本}.jar`
+Jar 命名格式: `beaconflight-{mc_range}-{loader}-{mod_version}.jar`
 
 ### 📦 安装
 
@@ -115,15 +120,20 @@ Grants **creative-mode flight** to players within an active beacon's range. As l
 
 Choose the jar matching your MC version and loader from [Releases](../../releases):
 
-| Minecraft | Fabric | NeoForge | Forge |
-|-----------|--------|----------|-------|
-| 1.20.1 | ✅ | — | ✅ |
-| 1.21.1 | ✅ | ✅ | — |
-| 1.21.11 | ✅ | ✅ | — |
-| 26.1 | ✅ | ✅ | — |
-| 26.2 | ✅ | ✅ | — |
+| MC 范围 | Loader | Jar |
+|----------|--------|-----|
+| 1.20.x | Fabric | `beaconflight-1.20.x-fabric-1.0.3.jar` |
+| 1.20.x | Forge | `beaconflight-1.20.x-forge-1.0.3.jar` |
+| 1.21.1 | Fabric | `beaconflight-1.21.1-fabric-1.0.3.jar` |
+| 1.21.1 | NeoForge | `beaconflight-1.21.1-neoforge-1.0.3.jar` |
+| 1.21.11 | Fabric | `beaconflight-1.21.11-fabric-1.0.3.jar` |
+| 1.21.11 | NeoForge | `beaconflight-1.21.11-neoforge-1.0.3.jar` |
+| 26.1 | Fabric | `beaconflight-26.1-fabric-1.0.3.jar` |
+| 26.1 | NeoForge | `beaconflight-26.1-neoforge-1.0.3.jar` |
+| 26.2 | Fabric | `beaconflight-26.2-fabric-1.0.3.jar` |
+| 26.2 | NeoForge | `beaconflight-26.2-neoforge-1.0.3.jar` |
 
-Jar naming: `beaconflight-{MC_range}-{loader}-{mod_version}.jar`
+Jar naming: `beaconflight-{mc_range}-{loader}-{mod_version}.jar`
 
 ### 📦 Installation
 

@@ -2,6 +2,9 @@ modLoader = "javafml"
 loaderVersion = "[47,)"
 license = "MIT"
 
+[[mixins]]
+config = "beaconflight.mixins.json"
+
 [[mods]]
 modId = "beaconflight"
 version = "${mod_version}"

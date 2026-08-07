@@ -10,7 +10,6 @@
     "issues": "https://github.com/Redbean520/BeaconFlight/issues"
   },
   "license": "MIT",
-  "icon": "assets/beaconflight/icon.png",
   "environment": "server",
   "entrypoints": {
     "main": ["com.redbean.beaconflight.fabric.BeaconFlightFabric"]
