@@ -23,14 +23,14 @@ stonecutter {
         version("1.20.x-fabric", "1.20.1")    // 1.20.1–1.20.6 (intermediary 内部一致)
         version("1.21.1-fabric", "1.21.1")    // 1.21.1 (intermediary)
         version("1.21.11-fabric", "1.21.11")  // 1.21.11 (intermediary)
-        version("26.1-fabric", "26.1")         // 26.1 (Mojang)
-        version("26.2-fabric", "26.2")         // 26.2 (Mojang)
+        version("26.1.x-fabric", "26.1")         // 26.1.x (Mojang)
+        version("26.2.x-fabric", "26.2")         // 26.2.x (Mojang)
 
         // NeoForge — each major version independent
         version("1.21.1-neoforge", "1.21.1")
         version("1.21.11-neoforge", "1.21.11")
-        version("26.1-neoforge", "26.1")
-        version("26.2-neoforge", "26.2")
+        version("26.1.x-neoforge", "26.1")
+        version("26.2.x-neoforge", "26.2")
 
         // Forge (1.20.x)
         version("1.20.x-forge", "1.20.1")

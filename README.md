@@ -49,10 +49,10 @@
 | 1.21.1 | NeoForge | `beaconflight-1.21.1-neoforge-1.0.3.jar` |
 | 1.21.11 | Fabric | `beaconflight-1.21.11-fabric-1.0.3.jar` |
 | 1.21.11 | NeoForge | `beaconflight-1.21.11-neoforge-1.0.3.jar` |
-| 26.1 | Fabric | `beaconflight-26.1-fabric-1.0.3.jar` |
-| 26.1 | NeoForge | `beaconflight-26.1-neoforge-1.0.3.jar` |
-| 26.2 | Fabric | `beaconflight-26.2-fabric-1.0.3.jar` |
-| 26.2 | NeoForge | `beaconflight-26.2-neoforge-1.0.3.jar` |
+| 26.1.x | Fabric | `beaconflight-26.1.x-fabric-1.0.3.jar` |
+| 26.1.x | NeoForge | `beaconflight-26.1.x-neoforge-1.0.3.jar` |
+| 26.2.x | Fabric | `beaconflight-26.2.x-fabric-1.0.3.jar` |
+| 26.2.x | NeoForge | `beaconflight-26.2.x-neoforge-1.0.3.jar` |
 
 Jar 命名格式: `beaconflight-{mc_range}-{loader}-{mod_version}.jar`
 
@@ -128,10 +128,10 @@ Choose the jar matching your MC version and loader from [Releases](../../release
 | 1.21.1 | NeoForge | `beaconflight-1.21.1-neoforge-1.0.3.jar` |
 | 1.21.11 | Fabric | `beaconflight-1.21.11-fabric-1.0.3.jar` |
 | 1.21.11 | NeoForge | `beaconflight-1.21.11-neoforge-1.0.3.jar` |
-| 26.1 | Fabric | `beaconflight-26.1-fabric-1.0.3.jar` |
-| 26.1 | NeoForge | `beaconflight-26.1-neoforge-1.0.3.jar` |
-| 26.2 | Fabric | `beaconflight-26.2-fabric-1.0.3.jar` |
-| 26.2 | NeoForge | `beaconflight-26.2-neoforge-1.0.3.jar` |
+| 26.1.x | Fabric | `beaconflight-26.1.x-fabric-1.0.3.jar` |
+| 26.1.x | NeoForge | `beaconflight-26.1.x-neoforge-1.0.3.jar` |
+| 26.2.x | Fabric | `beaconflight-26.2.x-fabric-1.0.3.jar` |
+| 26.2.x | NeoForge | `beaconflight-26.2.x-neoforge-1.0.3.jar` |
 
 Jar naming: `beaconflight-{mc_range}-{loader}-{mod_version}.jar`
 
@@ -188,10 +188,10 @@ BeaconFlight/
     ├── 1.21.1-neoforge/      ← NeoForge 1.21.1
     ├── 1.21.11-fabric/       ← Fabric 1.21.11（intermediary）
     ├── 1.21.11-neoforge/     ← NeoForge 1.21.11
-    ├── 26.1-fabric/          ← Fabric 26.1（Mojang 映射）
-    ├── 26.1-neoforge/        ← NeoForge 26.1
-    ├── 26.2-fabric/          ← Fabric 26.2（Mojang 映射）
-    └── 26.2-neoforge/        ← NeoForge 26.2
+    ├── 26.1.x-fabric/          ← Fabric 26.1.x（Mojang 映射）
+    ├── 26.1.x-neoforge/        ← NeoForge 26.1.x
+    ├── 26.2.x-fabric/          ← Fabric 26.2.x（Mojang 映射）
+    └── 26.2.x-neoforge/        ← NeoForge 26.2.x
 ```
 
 ## 👤 Author
