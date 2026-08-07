@@ -1,0 +1,186 @@
+// ─────────────────────────────────────────────────────────────
+//  BeaconFlight — Stonecutter multi-loader build script
+//  Supported loaders: fabric | neoforge | forge
+//  Loader is read from each version's gradle.properties.
+// ─────────────────────────────────────────────────────────────
+
+buildscript {
+    repositories {
+        maven { name = "Fabric"; url = "https://maven.fabricmc.net/" }
+        maven { url = "https://maven.aliyun.com/repository/central" }
+        mavenCentral()
+    }
+    dependencies {
+        classpath "net.fabricmc:fabric-loom:1.17.12"
+    }
+}
+
+plugins {
+    // NeoForge / Legacy Forge — resolved from Gradle Plugin Portal
+    id("net.neoforged.moddev") version "2.0.141" apply false
+    id("net.neoforged.moddev.legacyforge") version "2.0.141" apply false
+}
+
+// ── Loader detection ────────────────────────────────────────
+def loader = project.hasProperty("loader")
+    ? project.property("loader").toString()
+    : "fabric"
+
+// ── Version-specific properties ─────────────────────────────
+def mcVer = project.hasProperty("minecraft_version")
+    ? project.property("minecraft_version").toString()
+    : "1.21.1"
+
+// Fabric mapping: "intermediary" (default) uses fabric-loom-remap,
+// "mojang" uses plain fabric-loom (no remap).  Mojang mappings
+// produce byte-identical JARs across MC versions, enabling
+// cross-version sharing (e.g. one JAR for 1.21+).
+def mappingNamespace = project.hasProperty("mapping_namespace")
+    ? project.property("mapping_namespace").toString()
+    : (!mcVer.startsWith("26") ? "intermediary" : "mojang")
+def useRemap = mappingNamespace != "mojang"
+
+def minecraftVersion = project.property("minecraft_version")
+def loaderVersion    = project.property("loader_version")
+def javaVersion      = project.property("java_version")
+def mixinCompat      = project.property("mixin_compat")
+
+// ── Shared properties ───────────────────────────────────────
+def modVersion       = project.property("mod_version")
+def mavenGroup       = project.property("maven_group")
+def archivesBaseName = project.property("archives_base_name")
+def mcRange          = project.hasProperty("mc_range")
+    ? project.property("mc_range").toString()
+    : minecraftVersion
+
+version = modVersion
+group = mavenGroup
+base { archivesName = "${archivesBaseName}-${mcRange}-${loader}" }
+
+// ── Conditional plugin application ──────────────────────────
+if (loader == "fabric") {
+    if (useRemap) {
+        apply plugin: "net.fabricmc.fabric-loom-remap"
+    } else {
+        apply plugin: "net.fabricmc.fabric-loom"
+    }
+    apply plugin: "maven-publish"
+}
+if (loader == "neoforge") {
+    apply plugin: "net.neoforged.moddev"
+}
+if (loader == "forge") {
+    apply plugin: "net.neoforged.moddev.legacyforge"
+}
+
+// ── Java ────────────────────────────────────────────────────
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.toVersion(javaVersion)
+    targetCompatibility = JavaVersion.toVersion(javaVersion)
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = javaVersion.toInteger()
+}
+
+// ── Combine common + loader-specific sources ─────────────────
+sourceSets {
+    main {
+        java {
+            srcDir "${rootDir}/src/${loader}/java"
+        }
+        resources {
+            srcDir "${rootDir}/src/${loader}/resources"
+        }
+    }
+}
+
+repositories {
+    maven { url = "https://maven.aliyun.com/repository/central" }
+}
+
+// ── Fabric: Loom dependencies ────────────────────────────────
+if (loader == "fabric") {
+    dependencies {
+        minecraft "com.mojang:minecraft:${minecraftVersion}"
+        if (useRemap) {
+            mappings loom.officialMojangMappings()
+            modImplementation "net.fabricmc:fabric-loader:${loaderVersion}"
+        } else {
+            implementation "net.fabricmc:fabric-loader:${loaderVersion}"
+        }
+    }
+}
+
+// ── NeoForge: ModDevGradle ──────────────────────────────────
+if (loader == "neoforge") {
+    neoForge {
+        // loaderVersion = NeoForge version  e.g. "21.1.119"
+        version = loaderVersion
+    }
+}
+
+// ── Forge 1.20.1: ModDevGradle legacyforge ───────────────────
+if (loader == "forge") {
+    // Force JDK 17 toolchain — the legacyforge internal tasks
+    // (createMinecraftArtifacts, recompile, etc.) need real JDK 17.
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+    legacyForge {
+        version = "${minecraftVersion}-${loaderVersion}"
+    }
+}
+
+// ── Resource processing ─────────────────────────────────────
+processResources {
+    inputs.property "mod_version", modVersion
+    inputs.property "minecraft_version", minecraftVersion
+    inputs.property "mc_range", mcRange
+    inputs.property "loader_version", loaderVersion
+    inputs.property "java_version", javaVersion
+    inputs.property "mixin_compat", mixinCompat
+
+    // ── Exclude other loaders' metadata ──────────────────
+    if (loader == "fabric") {
+        // Fabric only wants fabric.mod.json
+        exclude "META-INF/"
+        filesMatching("fabric.mod.json") {
+            expand(
+                "mod_version": modVersion,
+                "minecraft_version": minecraftVersion,
+                "mc_range": mcRange,
+                "loader_version": loaderVersion,
+                "java_version": javaVersion
+            )
+        }
+    }
+    if (loader == "neoforge") {
+        // NeoForge only wants neoforge.mods.toml
+        exclude "fabric.mod.json"
+        exclude "META-INF/mods.toml"
+        filesMatching("META-INF/neoforge.mods.toml") {
+            expand("mod_version": modVersion)
+        }
+    }
+    if (loader == "forge") {
+        // Forge only wants mods.toml
+        exclude "fabric.mod.json"
+        exclude "META-INF/neoforge.mods.toml"
+        filesMatching("META-INF/mods.toml") {
+            expand("mod_version": modVersion)
+        }
+    }
+
+    // Mixin config — shared across all loaders
+    filesMatching("beaconflight.mixins.json") {
+        expand("mixin_compat": mixinCompat)
+    }
+}
+
+jar {
+    from("LICENSE") { rename { "${it}_${project.base.archivesName.get()}" } }
+}

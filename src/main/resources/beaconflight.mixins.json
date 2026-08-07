@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.redbean.beaconflight.mixin",
+  "compatibilityLevel": "${mixin_compat}",
+  "refmap": "beaconflight.refmap.json",
+  "mixins": [
+    "BeaconFlightMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

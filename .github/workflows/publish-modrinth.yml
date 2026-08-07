@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Release tag (e.g. v1.0.1)'
+        description: 'Release tag (e.g. v1.0.2)'
         required: true
-        default: 'v1.0.1'
+        default: 'v1.0.2'
 
 jobs:
   publish:
@@ -16,16 +16,39 @@ jobs:
     strategy:
       matrix:
         include:
-          - pattern: "*+mc1.20.1-*.jar"
+          # Fabric
+          - pattern: "*-1.20.x-fabric-*.jar"
             mc-version: "1.20.1"
-          - pattern: "*+mc1.21.1-*.jar"
+            loader: "fabric"
+          - pattern: "*-1.21.1-fabric-*.jar"
             mc-version: "1.21.1"
-          - pattern: "*+mc1.21.11-*.jar"
+            loader: "fabric"
+          - pattern: "*-1.21.11-fabric-*.jar"
             mc-version: "1.21.11"
-          - pattern: "*+mc26.1-*.jar"
+            loader: "fabric"
+          - pattern: "*-26.1-fabric-*.jar"
             mc-version: "26.1"
-          - pattern: "*+mc26.2-*.jar"
+            loader: "fabric"
+          - pattern: "*-26.2-fabric-*.jar"
             mc-version: "26.2"
+            loader: "fabric"
+          # NeoForge
+          - pattern: "*-1.21.1-neoforge-*.jar"
+            mc-version: "1.21.1"
+            loader: "neoforge"
+          - pattern: "*-1.21.11-neoforge-*.jar"
+            mc-version: "1.21.11"
+            loader: "neoforge"
+          - pattern: "*-26.1-neoforge-*.jar"
+            mc-version: "26.1"
+            loader: "neoforge"
+          - pattern: "*-26.2-neoforge-*.jar"
+            mc-version: "26.2"
+            loader: "neoforge"
+          # Forge
+          - pattern: "*-1.20.x-forge-*.jar"
+            mc-version: "1.20.1"
+            loader: "forge"
 
     steps:
       - name: Determine tag
@@ -49,13 +72,13 @@ jobs:
           modrinth-id: redbean-beaconflight
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
-          name: "BeaconFlight ${{ steps.vars.outputs.tag }} for MC ${{ matrix.mc-version }}"
-          version: "${{ steps.vars.outputs.version }}+mc${{ matrix.mc-version }}"
+          name: "BeaconFlight ${{ steps.vars.outputs.tag }} for MC ${{ matrix.mc-version }} (${{ matrix.loader }})"
+          version: "${{ steps.vars.outputs.version }}+mc${{ matrix.mc-version }}-${{ matrix.loader }}"
           version-type: release
           game-versions: ${{ matrix.mc-version }}
-          loaders: fabric
-          files: "*+mc${{ matrix.mc-version }}-*.jar"
+          loaders: ${{ matrix.loader }}
+          files: "*${{ matrix.pattern }}"
 
           changelog: |
             详见 [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/master/CHANGELOG.md)
-            下载其他 MC 版本: [GitHub Releases](https://github.com/${{ github.repository }}/releases)
+            下载其他版本: [GitHub Releases](https://github.com/${{ github.repository }}/releases)

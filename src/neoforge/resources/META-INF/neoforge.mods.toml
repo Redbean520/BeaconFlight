@@ -1,0 +1,10 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+license = "MIT"
+
+[[mods]]
+modId = "beaconflight"
+version = "${mod_version}"
+displayName = "Beacon Flight"
+description = "Grants creative-style flight to players inside an active beacon's range."
+authors = ["Redbean"]

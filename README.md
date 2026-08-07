@@ -2,6 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Mod Loader: Fabric](https://img.shields.io/badge/Mod_Loader-Fabric-blue)](https://fabricmc.net)
+[![Mod Loader: NeoForge](https://img.shields.io/badge/Mod_Loader-NeoForge-orange)](https://neoforged.net)
+[![Mod Loader: Forge](https://img.shields.io/badge/Mod_Loader-Forge-red)](https://minecraftforge.net)
 [![Environment: Server](https://img.shields.io/badge/Environment-Server-orange)](#)
 [![Modrinth](https://img.shields.io/badge/Modrinth-coming_soon-green)](#)
 [![CurseForge](https://img.shields.io/badge/CurseForge-coming_soon-orange)](#)
@@ -33,41 +35,45 @@
 - ⚡ 零性能开销——仅检查原版信标效果
 - 🔧 无配置文件，即装即用
 - 📦 无需 Fabric API
+- 🔌 支持 Fabric / NeoForge / Forge 三种 loader
 
 ### 📥 下载
 
-从 [Releases](../../releases) 页面选择对应 MC 版本的 jar：
+从 [Releases](../../releases) 页面选择对应 MC 版本和 loader 的 jar：
 
-| Minecraft | 状态 |
-|-----------|------|
-| 1.20.1 | ✅ |
-| 1.21.1 | ✅ |
-| 1.21.11 | ✅ |
-| 26.1 | ✅ |
-| 26.2 | ✅ |
+| Minecraft | Fabric | NeoForge | Forge |
+|-----------|--------|----------|-------|
+| 1.20.1 | ✅ | — | ✅ |
+| 1.21.1 | ✅ | ✅ | — |
+| 1.21.11 | ✅ | ✅ | — |
+| 26.1 | ✅ | ✅ | — |
+| 26.2 | ✅ | ✅ | — |
+
+Jar 命名格式: `beaconflight-{MC版本}-{loader}-{mod版本}.jar`
 
 ### 📦 安装
 
-1. 下载对应 MC 版本的 jar（如 `beaconflight+mc1.20.1-1.0.1.jar`）
+1. 下载对应 MC 版本和 loader 的 jar
 2. 放入 `mods/` 文件夹
-3. 确保已安装 **Fabric Loader**
+3. 确保已安装对应的 **Mod Loader**（Fabric / NeoForge / Forge）
 4. 启动游戏
 
 ### 🔧 构建
 
 ```bash
-# 以 1.20.1 为例（需 JDK 17+）
-cd 1.20.1
+# 全量构建（需 JDK 17+，Gradle wrapper 会自动下载所需 JDK）
 ./gradlew build
-# jar 输出到 build/libs/（如 beaconflight+mc1.20.1-1.0.1.jar）
+
+# 构建单个版本
+./gradlew :1.21.1-fabric:build
 ```
 
 各版本的 JDK 要求：
 
 | 版本 | JDK |
 |------|-----|
-| 1.20.1 | ≥ 17 |
-| 1.21.1 / 1.21.11 | ≥ 21 |
+| 1.20.x | ≥ 17 |
+| 1.21.x | ≥ 21 |
 | 26.x | ≥ 25 |
 
 ### 📝 技术细节
@@ -103,39 +109,43 @@ Grants **creative-mode flight** to players within an active beacon's range. As l
 - ⚡ Zero overhead — checks vanilla beacon effects only
 - 🔧 No config, plug and play
 - 📦 No Fabric API required
+- 🔌 Fabric / NeoForge / Forge loaders supported
 
 ### 📥 Download
 
-Choose the jar matching your MC version from [Releases](../../releases):
+Choose the jar matching your MC version and loader from [Releases](../../releases):
 
-| Minecraft | Status |
-|-----------|--------|
-| 1.20.1 | ✅ |
-| 1.21.1 | ✅ |
-| 1.21.11 | ✅ |
-| 26.1 | ✅ |
-| 26.2 | ✅ |
+| Minecraft | Fabric | NeoForge | Forge |
+|-----------|--------|----------|-------|
+| 1.20.1 | ✅ | — | ✅ |
+| 1.21.1 | ✅ | ✅ | — |
+| 1.21.11 | ✅ | ✅ | — |
+| 26.1 | ✅ | ✅ | — |
+| 26.2 | ✅ | ✅ | — |
+
+Jar naming: `beaconflight-{MC_range}-{loader}-{mod_version}.jar`
 
 ### 📦 Installation
 
-1. Download the jar matching your MC version (e.g. `beaconflight+mc1.20.1-1.0.1.jar`)
+1. Download the jar matching your MC version and mod loader
 2. Place in `mods/` folder (server or singleplayer)
-3. Ensure **Fabric Loader** is installed
+3. Ensure the matching **Mod Loader** is installed (Fabric / NeoForge / Forge)
 4. Launch and enjoy!
 
 ### 🔧 Build
 
 ```bash
-# Example for 1.20.1 (requires JDK 17+)
-cd 1.20.1
+# Build all versions (requires Gradle wrapper, auto-downloads JDKs)
 ./gradlew build
-# Output: build/libs/
+
+# Build a single version
+./gradlew :1.21.1-fabric:build
 ```
 
 | Version | JDK |
 |---------|-----|
-| 1.20.1 | ≥ 17 |
-| 1.21.1 / 1.21.11 | ≥ 21 |
+| 1.20.x | ≥ 17 |
+| 1.21.x | ≥ 21 |
 | 26.x | ≥ 25 |
 
 ### 📝 Technical Details
@@ -152,13 +162,26 @@ cd 1.20.1
 
 ```
 BeaconFlight/
-├── README.md
-├── LICENSE
-├── 1.20.1/       ← MC 1.20.1 (pre-Holder API)
-├── 1.21.1/       ← MC 1.21.1 (Holder API)
-├── 1.21.11/      ← MC 1.21.11 (Holder API)
-├── 26.1/         ← MC 26.1 Tiny Takeover
-└── 26.2/         ← MC 26.2 Summer Drop
+├── build.gradle              ← 核心构建脚本（三 loader 条件激活）
+├── settings.gradle.kts       ← Stonecutter 版本注册
+├── stonecutter.gradle.kts    ← 当前活跃版本
+├── src/
+│   ├── main/java/.../        ← 共享源代码（Mixin + BeaconEffectCompat）
+│   ├── main/resources/       ← 共享资源（mixin 配置、语言文件）
+│   ├── fabric/               ← Fabric 入口点 + fabric.mod.json
+│   ├── neoforge/             ← NeoForge 入口点 + neoforge.mods.toml
+│   └── forge/                ← Forge 入口点 + mods.toml
+└── versions/                 ← 各版本独立目录
+    ├── 1.20.x-fabric/        ← Fabric 1.20.x（intermediary 映射）
+    ├── 1.20.x-forge/         ← Forge 1.20.x
+    ├── 1.21.1-fabric/        ← Fabric 1.21.1（intermediary）
+    ├── 1.21.1-neoforge/      ← NeoForge 1.21.1
+    ├── 1.21.11-fabric/       ← Fabric 1.21.11（intermediary）
+    ├── 1.21.11-neoforge/     ← NeoForge 1.21.11
+    ├── 26.1-fabric/          ← Fabric 26.1（Mojang 映射）
+    ├── 26.1-neoforge/        ← NeoForge 26.1
+    ├── 26.2-fabric/          ← Fabric 26.2（Mojang 映射）
+    └── 26.2-neoforge/        ← NeoForge 26.2
 ```
 
 ## 👤 Author

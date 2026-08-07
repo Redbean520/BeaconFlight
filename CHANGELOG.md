@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.0.2 — 2026-08-07
+
+### Added
+- **NeoForge** loader support (1.21.1, 1.21.11, 26.1, 26.2)
+- **Forge** loader support (1.20.1)
+- Stonecutter multi-loader / multi-version project structure
+- Mojang-named Fabric builds for MC 26.x (byte-identical across versions)
+
+### Changed
+- Jar naming: `beaconflight-{mc_range}-{loader}-{version}.jar` (e.g. `beaconflight-1.20.x-fabric-1.0.2.jar`)
+- Version directories renamed to match MC coverage ranges (e.g. `1.20.x-fabric/`, `26.1-neoforge/`)
+- `fabric.mod.json` now uses `${mc_range}` for flexible version matching
+
+### Removed
+- Stale root-level `fabric.mod.json`
+
 ## 1.0.1 — 2026-08-07
 
 ### Added

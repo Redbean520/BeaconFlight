@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "beaconflight",
+  "version": "${mod_version}",
+  "name": "Beacon Flight",
+  "description": "Grants creative-style flight to players inside an active beacon's range.",
+  "authors": ["Redbean"],
+  "contact": {
+    "homepage": "https://github.com/Redbean520/BeaconFlight",
+    "issues": "https://github.com/Redbean520/BeaconFlight/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/beaconflight/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": ["com.redbean.beaconflight.fabric.BeaconFlightFabric"]
+  },
+  "mixins": ["beaconflight.mixins.json"],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "${mc_range}",
+    "java": ">=${java_version}"
+  }
+}
