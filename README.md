@@ -198,9 +198,9 @@ BeaconFlight/
 
 **Redbean**
 
-## ❤️ 赞助 Sponsor
+## ❤️ Sponsor / 赞助
 
-用爱发电，完全免费。如果这个模组帮到了你，欢迎请我喝杯咖啡 ☕
+完全免费，用爱发电。如果这个模组帮到了你，欢迎请我喝杯咖啡 ☕
 
 - [爱发电](https://afdian.net/a/HD520)
 
