@@ -202,7 +202,7 @@ BeaconFlight/
 
 完全免费，用爱发电。如果这个模组帮到了你，欢迎请我喝杯咖啡 ☕
 
-- [爱发电](https://afdian.net/a/HD520)
+- [爱发电](https://ifdian.net/a/HD520)
 
 | 支付宝 Alipay | 微信 WeChat |
 |:---:|:---:|
